@@ -1,0 +1,13 @@
+data<-read.table("household_power_consumption.txt",header=TRUE,sep=";")
+sub_data<-data[c(which(data$Date=="1/2/2007"),which(data$Date=="2/2/2007")),c("Date","Time","Global_active_power","Voltage","Sub_metering_1","Sub_metering_2","Sub_metering_3")]
+png("plot3.png",width=4, height=4,units="in",res=480)
+plot(1:length(sub_data$Sub_metering_1),as.numeric(as.character(sub_data$Sub_metering_1)),lty=c(1,1,1),type="l",col="black",lwd=1,labels=FALSE,xaxt="n",yaxt="n",xlab='',ylab='',ylim=c(0,40))
+par(new=T)
+plot(1:length(sub_data$Sub_metering_2),as.numeric(as.character(sub_data$Sub_metering_2)),lty=c(1,1,1),type="l",col="red",lwd=1,labels=FALSE,xaxt="n",yaxt="n",xlab='',ylab='',ylim=c(0,40))
+par(new=T)
+plot(1:length(sub_data$Sub_metering_3),as.numeric(as.character(sub_data$Sub_metering_3)),lty=c(1,1,1),type="l",col="BLUE",lwd=1,labels=FALSE,xaxt="n",xlab='',ylim=c(0,40),ylab="Global Active Power(kilowatts)")
+par(new=F)
+axis(1,at=c(0,1440,2880),labels=c("Th","Fr","Sa"))
+axis(2,at=c(0,10,20,30),labels=c(0,10,20,30))
+legend("topright",c("sub metering 1","sub metering 2","sub metering 3"),lty=c(1,1,1),lwd=c(1,1,1),col=c("black","red","blue"),cex=0.5)
+dev.off()
